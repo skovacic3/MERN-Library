@@ -13,4 +13,10 @@ module.exports = function (app) {
     app.get("/api/book/all", [authJwt.verifyToken], controller.getAll);
 
     app.post("/api/book/add", [authJwt.verifyToken, authJwt.isAdmin], controller.addBook);
+
+    app.post("/api/book/edit/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.editBook);
+
+    app.get("/api/book/:id", [authJwt.verifyToken], controller.getBook);
+
+    app.delete("/api/book/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteBook);
 };

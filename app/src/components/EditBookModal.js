@@ -1,10 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
-import {isEmail} from "validator";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
-import AuthService from "../services/auth.service";
 import bookService from "../services/book.service";
 import Button from "react-bootstrap/Button";
 
@@ -18,17 +16,16 @@ const required = (value) => {
     }
 };
 
-const NewBookModal = props => {
+const EditBookModal = props => {
     const form = useRef();
     const checkBtn = useRef();
-
-    const [name, setName] = useState(props.name ? props.name : '');
-    const [author, setAuthor] = useState(props.author ? props.author : '');
-    const [description, setDescription] = useState(props.description ? props.description : '');
+    const [name, setName] = useState(props.name);
+    const [author, setAuthor] = useState(props.author);
+    const [description, setDescription] = useState(props.description);
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleEdit = (e) => {
         e.preventDefault();
 
         setMessage("");
@@ -37,7 +34,7 @@ const NewBookModal = props => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            bookService.addBook(name, author, description).then(
+            bookService.editBook(props.id, name, author, description).then(
                 response => {
                     setMessage(response.data.message);
                     setSuccessful(true);
@@ -55,7 +52,7 @@ const NewBookModal = props => {
                 }
             );
         }
-    };
+    }
 
     return (
         <Modal
@@ -66,11 +63,11 @@ const NewBookModal = props => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add new book
+                    Edit book
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit} ref={form}>
+                <Form onSubmit={handleEdit} ref={form}>
                     {!successful && (
                         <div>
                             <div className="form-group">
@@ -110,8 +107,8 @@ const NewBookModal = props => {
                             </div>
 
                             <div className="form-group">
-                                <button className="btn btn-primary btn-block">Add book</button>
                             </div>
+                            <button className="btn btn-primary btn-block">Edit book</button>
                         </div>
                     )}
 
@@ -135,4 +132,4 @@ const NewBookModal = props => {
     );
 };
 
-export default NewBookModal;
+export default EditBookModal;
