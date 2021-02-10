@@ -12,11 +12,13 @@ module.exports = function (app) {
 
     app.get("/api/user/all", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
 
+    app.get("/api/user/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.getUser);
+
+    app.delete("/api/user/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);
+
     /*app.post("/api/user/add", [authJwt.verifyToken, authJwt.isAdmin], controller.addUser);
 
     app.post("/api/user/edit/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.editUser);
-
-    app.get("/api/user/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.getUser);
 
     app.delete("/api/user/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);*/
 };

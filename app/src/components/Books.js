@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import AuthService from "../services/auth.service";
 import NewBookModal from "./NewBookModal";
 import EditBookModal from "./EditBookModal";
+import reservationService from "../services/reservation.service";
 
 const Books = props => {
     const [books, setBooks] = useState([]);
@@ -20,6 +21,11 @@ const Books = props => {
 
     const handleDelete = id => {
         bookService.deleteBook(id).then(() => getBooks());
+    }
+
+    const handleReservation = id => {
+        bookService.reserveBook(id).then();
+        reservationService.addReservation(currentUser.id, id).then(() => getBooks());
     }
 
     useEffect(() => {
@@ -55,7 +61,7 @@ const Books = props => {
                                 <Button variant="danger" onClick={() => handleDelete(book._id)}>Delete</Button>
                             </div>
                         )
-                        : <Button style={{marginTop: 'auto'}} variant="primary">Reserve</Button>}
+                        : <Button disabled={book.reserved || book.borrowed} style={{marginTop: 'auto'}} variant="primary" onClick={() => handleReservation(book._id)}>Reserve</Button>}
                     </Card.Body>
                 </Card>
             ))}

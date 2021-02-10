@@ -42,6 +42,13 @@ exports.editBook = (req, res) => {
     })
 }
 
+exports.reserveBook = (req, res) => {
+    Book.findOneAndUpdate({_id: req.params.id}, {reserved: true}, err => {
+        if (err) res.status(500).send({message: err});
+        res.send({ message: `Reservation was done!` });
+    })
+}
+
 exports.deleteBook = (req, res) => {
     Book.findByIdAndDelete(req.params.id, (err, docs) => {
         if(err) res.status(500).send({message: err})

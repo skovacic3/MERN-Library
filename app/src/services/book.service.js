@@ -38,7 +38,16 @@ const editBook = async (id, name, author, description) => {
             .post(API_URL + "edit/" + id, {
                 name,
                 author,
-                description
+                description,
+            }, {headers: {"x-access-token": localStorage.getItem("token")}});
+    }
+}
+
+const reserveBook = async (id) => {
+    if (localStorage.getItem("token")) {
+        return axios
+            .post(API_URL + "reserve/" + id, {
+
             }, {headers: {"x-access-token": localStorage.getItem("token")}});
     }
 }
@@ -55,7 +64,8 @@ const bookService = {
     addBook,
     getBook,
     editBook,
-    deleteBook
+    deleteBook,
+    reserveBook
 };
 
 export default bookService;
