@@ -18,19 +18,22 @@ const login = (username, password) => {
         })
         .then((response) => {
             if (response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data));
+                localStorage.setItem("token", response.data.accessToken);
             }
-
             return response.data;
         });
 };
 
 const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
 };
 
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+const getCurrentUser = async () => {
+    if (localStorage.getItem("token")) {
+        const response = await axios
+            .get(API_URL + "me", { headers: { "x-access-token": localStorage.getItem("token") } });
+        return response.data;
+    }
 };
 
 const AuthService = {
