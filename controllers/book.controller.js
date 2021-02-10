@@ -14,6 +14,7 @@ exports.addBook = (req, res) => {
     const book = new Book({
         name: req.body.name,
         author: req.body.author,
+        description: req.body.description,
         reserved: false,
         borrowed: false,
     });

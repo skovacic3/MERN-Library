@@ -12,8 +12,20 @@ const getAllBooks = async () => {
     }
 };
 
+const addBook = async (name, author, description) => {
+    if (localStorage.getItem("token")) {
+        return axios
+            .post(API_URL + "add", {
+                name,
+                author,
+                description
+            }, {headers: {"x-access-token": localStorage.getItem("token")}});
+    }
+}
+
 const bookService = {
     getAllBooks,
+    addBook,
 };
 
 export default bookService;

@@ -3,10 +3,12 @@ import bookService from "../services/book.service";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/auth.service";
+import NewBookModal from "./NewBookModal";
 
 const Books = props => {
     const [books, setBooks] = useState([]);
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         bookService.getAllBooks().then(r => {
@@ -17,10 +19,18 @@ const Books = props => {
             setCurrentUser(user)
         })
     }, [])
+
+    useEffect(() => {
+        bookService.getAllBooks().then(r => {
+            setBooks(r);
+            console.log(r[0].author);
+        })
+    }, [showModal])
     return (
         <div>
             <h1>Books</h1>
-            {currentUser && currentUser.admin && <Button variant="primary">Add new book</Button>}
+            {currentUser && currentUser.admin && <Button variant="primary" onClick={() => setShowModal(true)}>Add new book</Button>}
+            <NewBookModal show={showModal} onHide={() => setShowModal(false)} />
             <div className="d-flex justify-content-center">
                 {books.map(book => (
                 <Card key={book._id} style={{ width: '18rem', margin: '2rem' }}>
