@@ -19,8 +19,4 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.adminBoard
     );
-
-    app.get("/api/verify", [authJwt.verifyToken], (req, res) => { res.status(200).send({ valid: true }) });
-
-    app.get("/api/isAdmin", [authJwt.verifyToken, authJwt.isAdmin], (req, res) => { res.status(200).send({ valid: true }) });
 };

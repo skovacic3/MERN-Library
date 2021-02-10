@@ -1,3 +1,5 @@
+const { authJwt } = require("../middlewares");
+
 const { verifySignUp } = require('../middlewares');
 const controller = require('../controllers/auth');
 
@@ -21,4 +23,8 @@ module.exports = function (app) {
     app.post("/api/auth/signin", controller.signin);
 
     app.get("/api/auth/me", controller.me);
+
+    app.get("/api/auth/verify", [authJwt.verifyToken], (req, res) => { res.status(200).send({ valid: true }) });
+
+    app.get("/api/auth/isAdmin", [authJwt.verifyToken, authJwt.isAdmin], (req, res) => { res.status(200).send({ valid: true }) });
 };

@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import AuthService from "../services/auth.service";
 
 const Admin = props => {
-    return (
+    const [admin, setAdmin] = useState(false);
+
+    useEffect(() => {
+        AuthService.isAdmin().then(r => setAdmin(r)).catch(e => console.log());
+    }, [])
+     return (
         <div>
-            <p>Admin page!</p>
+            {admin ? <p>Admin page</p> : <p>Access denied</p>}
         </div>
     );
 };

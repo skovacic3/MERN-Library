@@ -57,16 +57,10 @@ exports.signin = (req, res) => {
 
 exports.me = (req, res) => {
     let token = req.headers["x-access-token"];
-    console.log(token);
 
     let decoded = jwt.verify(token, config.secret);
 
-    console.log(decoded);
-
-
     User.findOne({ _id: decoded.id }).then(user => {
-        console.log(user);
-
         res.status(200).send({
             id: user.id,
             username: user.username,

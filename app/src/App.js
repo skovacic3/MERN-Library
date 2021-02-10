@@ -8,7 +8,6 @@ import { Navbar } from 'react-bootstrap';
 import { Switch, Route, Link } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import React, { useEffect } from 'react';
-import AuthService from "./services/auth.service";
 
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/admin" component={Admin} />
+        <Route path="/admin" component={Admin} />
         <Route exact path="/books" component={Books} />
       </Switch>
     </div>

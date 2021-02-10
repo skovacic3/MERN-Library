@@ -36,11 +36,21 @@ const getCurrentUser = async () => {
     }
 };
 
+const isAdmin = async () => {
+    if (localStorage.getItem("token")) {
+        const response = await axios
+            .get(API_URL + "isAdmin", { headers: { "x-access-token": localStorage.getItem("token") } });
+        console.log(response.data.valid);
+        return response.data.valid;
+    }
+};
+
 const AuthService = {
     register,
     login,
     logout,
-    getCurrentUser
+    getCurrentUser,
+    isAdmin
 };
 
 export default AuthService;
