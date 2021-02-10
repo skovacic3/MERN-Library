@@ -19,7 +19,7 @@ const Books = props => {
     }
 
     const handleDelete = id => {
-        bookService.deleteBook(id).then(r => getBooks());
+        bookService.deleteBook(id).then(() => getBooks());
     }
 
     useEffect(() => {

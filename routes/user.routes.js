@@ -10,13 +10,13 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/test/all", controller.allAccess);
+    app.get("/api/user/all", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
 
-    app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+    /*app.post("/api/user/add", [authJwt.verifyToken, authJwt.isAdmin], controller.addUser);
 
-    app.get(
-        "/api/test/admin",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        controller.adminBoard
-    );
+    app.post("/api/user/edit/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.editUser);
+
+    app.get("/api/user/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.getUser);
+
+    app.delete("/api/user/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);*/
 };

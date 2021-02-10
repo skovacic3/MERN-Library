@@ -2,10 +2,6 @@ const Book = require('../models/Book');
 
 exports.getAll = (req, res) => {
     Book.find({}, (err, books) => {
-        const booksArr = [];
-
-        books.forEach(book => booksArr.push(book));
-
         res.send(books);
     });
 }

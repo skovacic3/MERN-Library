@@ -1,11 +1,7 @@
-exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
-};
+const User = require('../models/User');
 
-exports.userBoard = (req, res) => {
-    res.status(200).send("User Content.");
-};
-
-exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
-};
+exports.getAll = (req, res) => {
+    User.find({}, (err, users) => {
+        res.send(users);
+    });
+}
