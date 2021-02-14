@@ -18,6 +18,9 @@ module.exports = function (app) {
 
     app.post("/api/book/reserve/:id", [authJwt.verifyToken], controller.reserveBook);
 
+    app.post("/api/book/unreserve/:id", [authJwt.verifyToken], controller.unreserveBook);
+
+
     app.get("/api/book/:id", [authJwt.verifyToken], controller.getBook);
 
     app.delete("/api/book/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteBook);

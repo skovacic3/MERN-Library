@@ -52,6 +52,15 @@ const reserveBook = async (id) => {
     }
 }
 
+const unreserveBook = async (id) => {
+    if (localStorage.getItem("token")) {
+        return axios
+            .post(API_URL + "unreserve/" + id, {
+
+            }, {headers: {"x-access-token": localStorage.getItem("token")}});
+    }
+}
+
 const deleteBook = async (id) => {
     if (localStorage.getItem("token")) {
         return axios
@@ -65,7 +74,8 @@ const bookService = {
     getBook,
     editBook,
     deleteBook,
-    reserveBook
+    reserveBook,
+    unreserveBook
 };
 
 export default bookService;

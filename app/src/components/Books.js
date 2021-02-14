@@ -12,6 +12,9 @@ const Books = props => {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [showModal, setShowModal] = useState(false);
     const [id, setId] = useState(0);
+    const [nameFilter, setNameFilter] = useState('');
+    const [authorFilter, setAuthorFilter] = useState('');
+    const [reservedFilter, setReservedFilter] = useState(false);
 
     const getBooks = () => {
         bookService.getAllBooks().then(r => {
@@ -46,8 +49,12 @@ const Books = props => {
             <h1>Books</h1>
             {currentUser && currentUser.admin && <Button variant="primary" onClick={() => setShowModal(true)}>Add new book</Button>}
             <NewBookModal show={showModal} onHide={() => setShowModal(false)} />
+            <input onChange={e => setNameFilter(e.target.value)} placeholder={"Book name"} /> <br/>
+            <input style={{marginTop: '1rem'}} onChange={e => setAuthorFilter(e.target.value)} placeholder={"Author name"} />
             <div className="d-flex flex-wrap justify-content-center">
-                {books.map(book => (
+                {books
+                    .filter(book => book.name.toLowerCase().includes(nameFilter.toLowerCase()) && book.author.toLowerCase().includes(authorFilter.toLowerCase()))
+                    .map(book => (
                 <Card key={book._id} style={{ width: '18rem', margin: '2rem' }}>
                 <EditBookModal id={book._id} name={book.name} author={book.author} description={book.description} show={id !== 0} onHide={() => setId(0)} />
                 <Card.Body>
