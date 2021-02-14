@@ -6,6 +6,14 @@ exports.getAll = (req, res) => {
     });
 }
 
+exports.getReservationByUser = (req, res) => {
+    Reservation.find({userId: req.params.userId}, (err, reservations) => {
+        console.log(reservations);
+        console.log(req.params.userId);
+        res.send(reservations);
+    })
+}
+
 exports.addReservation = (req, res) => {
     const reservation = new Reservation({
         bookId: req.body.bookId,

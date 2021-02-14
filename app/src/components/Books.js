@@ -25,7 +25,7 @@ const Books = props => {
 
     const handleReservation = id => {
         bookService.reserveBook(id).then();
-        reservationService.addReservation(currentUser.id, id).then(() => getBooks());
+        reservationService.addReservation(id, currentUser.id).then(() => getBooks());
     }
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const Books = props => {
             <h1>Books</h1>
             {currentUser && currentUser.admin && <Button variant="primary" onClick={() => setShowModal(true)}>Add new book</Button>}
             <NewBookModal show={showModal} onHide={() => setShowModal(false)} />
-            <div className="d-flex justify-content-center">
+            <div className="d-flex flex-wrap justify-content-center">
                 {books.map(book => (
                 <Card key={book._id} style={{ width: '18rem', margin: '2rem' }}>
                 <EditBookModal id={book._id} name={book.name} author={book.author} description={book.description} show={id !== 0} onHide={() => setId(0)} />

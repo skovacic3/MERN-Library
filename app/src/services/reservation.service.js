@@ -11,6 +11,14 @@ const getAllReservations = async () => {
     }
 };
 
+const getReservationsByUser = async (userId) => {
+    if (localStorage.getItem("token")) {
+        const response = await axios
+            .get(API_URL + userId, { headers: { "x-access-token": localStorage.getItem("token") } });
+        return response.data;
+    }
+};
+
 const addReservation = async (bookId, userId) => {
     if (localStorage.getItem("token")) {
         return axios
@@ -41,6 +49,7 @@ const reservationService = {
     addReservation,
     getReservation,
     deleteReservation,
+    getReservationsByUser
 };
 
 export default reservationService;

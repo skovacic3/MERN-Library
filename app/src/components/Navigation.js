@@ -21,6 +21,8 @@ const Navigation = props => {
             <Nav className="mr-auto">
                 <Nav.Link as={Link} to='/'>Home</Nav.Link>
                 {currentUser ? <Nav.Link as={Link} to='/books'>Books</Nav.Link> : null}
+                {currentUser && !currentUser.admin ? <Nav.Link as={Link} to='/reservations'>My reservations</Nav.Link> : null}
+                {currentUser ? <Nav.Link as={Link} to='/profile'>My profile</Nav.Link> : null}
                 {currentUser && currentUser.admin ? <Nav.Link as={Link} to='/admin'>Admin</Nav.Link> : null}
                 {currentUser ? null : <Nav.Link as={Link} to='/login'>Login</Nav.Link>}
                 {currentUser ? null : <Nav.Link as={Link} to='/register'>Register</Nav.Link>}

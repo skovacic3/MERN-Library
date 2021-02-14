@@ -12,6 +12,8 @@ module.exports = function (app) {
 
     app.get("/api/reservation/all", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
 
+    app.get("/api/reservation/:userId", [authJwt.verifyToken], controller.getReservationByUser);
+
     app.post("/api/reservation/add", [authJwt.verifyToken], controller.addReservation);
 
     app.delete("/api/reservation/delete/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.deleteReservation);
